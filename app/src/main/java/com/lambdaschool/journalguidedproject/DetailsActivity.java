@@ -7,18 +7,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity {
+public class DetailsActivity extends AppCompatActivity {
 
     private static final int IMAGE_REQUEST_CODE = 50;
 
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("ActivityLifecycle", getLocalClassName() + " - onCreate");
+
         setContentView(R.layout.activity_main);
 
         createJournalEntry();
@@ -114,4 +117,39 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("ActivityLifecycle", getLocalClassName() + " - onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("ActivityLifecycle", getLocalClassName() + " - onResume");
+    }
+
+    // user interacting with app
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i("ActivityLifecycle", getLocalClassName() + " - onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("ActivityLifecycle", getLocalClassName() + " - onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("ActivityLifecycle", getLocalClassName() + " - onDestroy");
+    }
+
+
 }

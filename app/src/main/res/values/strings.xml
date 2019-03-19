@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">JournalGuidedProject</string>
+    <string name="title_activity_journal_list">JournalListActivity</string>
 </resources>
