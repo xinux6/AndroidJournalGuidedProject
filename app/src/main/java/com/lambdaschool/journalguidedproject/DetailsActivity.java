@@ -39,7 +39,7 @@ public class DetailsActivity extends AppCompatActivity {
 
 //        createJournalEntry();
         Intent intent = getIntent();
-        entry = (JournalEntry) intent.getSerializableExtra("entry");
+        entry = (JournalEntry) intent.getSerializableExtra(JournalEntry.TAG);
 
         dateView = findViewById(R.id.journal_entry_date);
         dateView.setText(entry.getDate());
@@ -87,7 +87,10 @@ public class DetailsActivity extends AppCompatActivity {
         });
 
         dayImageView = findViewById(R.id.journal_entry_image);
-        dayImageView.setImageURI(entry.getImage());
+        final Uri imageUri = entry.getImage();
+        if(imageUri != null) {
+            dayImageView.setImageURI(imageUri);
+        }
 
         findViewById(R.id.add_image_button).setOnClickListener(new View.OnClickListener() {
             @Override

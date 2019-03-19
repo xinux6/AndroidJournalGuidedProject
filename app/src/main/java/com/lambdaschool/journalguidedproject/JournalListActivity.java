@@ -47,6 +47,8 @@ public class JournalListActivity extends AppCompatActivity {
                 /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
                 Intent intent = new Intent(context, DetailsActivity.class);
+                JournalEntry entry = createJournalEntry();
+                intent.putExtra(JournalEntry.TAG, entry);
                 startActivity(intent);
             }
         });
@@ -92,13 +94,19 @@ public class JournalListActivity extends AppCompatActivity {
         Log.i("ActivityLifecycle", getLocalClassName() + " - onDestroy");
     }
 
-    private JournalEntry createJournalEntry(String text) {
+    private JournalEntry createJournalEntry() {
         JournalEntry entry = new JournalEntry(nextId++);
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date       date       = new Date();
 
         entry.setDate(dateFormat.format(date));
+
+        return entry;
+    }
+
+    private JournalEntry createJournalEntry(String text) {
+        JournalEntry entry = createJournalEntry();
         entry.setEntryText(text);
 
         return entry;
@@ -113,7 +121,7 @@ public class JournalListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent viewDetailIntent = new Intent(context, DetailsActivity.class);
-                viewDetailIntent.putExtra("entry", entry);
+                viewDetailIntent.putExtra(JournalEntry.TAG, entry);
                 startActivity(viewDetailIntent);
             }
         });

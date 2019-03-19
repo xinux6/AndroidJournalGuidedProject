@@ -5,6 +5,8 @@ import android.net.Uri;
 import java.io.Serializable;
 
 public class JournalEntry implements Serializable {
+    public static final String TAG = "JournalEntry";
+
     private String date, entryText, image;
     private int dayRating, id;
 
@@ -18,6 +20,9 @@ public class JournalEntry implements Serializable {
 
     public JournalEntry(int id) {
         this.id = id;
+        this.date = "";
+        this.entryText = "";
+        this.image = "";
     }
 
     public String getDate() {
@@ -37,7 +42,11 @@ public class JournalEntry implements Serializable {
     }
 
     public Uri getImage() {
-        return Uri.parse(image);
+        if(!image.equals("")) {
+            return Uri.parse(image);
+        } else {
+            return null;
+        }
     }
 
     public void setImage(Uri imageUri) {
