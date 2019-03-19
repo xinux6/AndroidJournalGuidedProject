@@ -3,6 +3,7 @@ package com.lambdaschool.journalguidedproject;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import java.util.Date;
 
 public class JournalListActivity extends AppCompatActivity {
 
+    public static final int NEW_ENTRY_REQUEST = 2;
     Context context;
 
     static int nextId = 0;
@@ -49,7 +51,7 @@ public class JournalListActivity extends AppCompatActivity {
                 Intent intent = new Intent(context, DetailsActivity.class);
                 JournalEntry entry = createJournalEntry();
                 intent.putExtra(JournalEntry.TAG, entry);
-                startActivity(intent);
+                startActivityForResult(intent, NEW_ENTRY_REQUEST);
             }
         });
 
@@ -126,6 +128,18 @@ public class JournalListActivity extends AppCompatActivity {
             }
         });
         return view;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(resultCode == RESULT_OK && requestCode == NEW_ENTRY_REQUEST) {
+            if (data != null) {
+                JournalEntry entry = (JournalEntry) data.getSerializableExtra(JournalEntry.TAG);
+
+//                entryList.set(entry.getId(), entry);
+                entryList.add(entry);
+            }
+        }
     }
 
     private void addTestEntries() {

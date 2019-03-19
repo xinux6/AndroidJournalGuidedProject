@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 public class JournalEntry implements Serializable {
     public static final String TAG = "JournalEntry";
+    public static final int INVALID_ID = -1;
 
     private String date, entryText, image;
     private int dayRating, id;

@@ -1,5 +1,6 @@
 package com.lambdaschool.journalguidedproject;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
@@ -40,6 +41,9 @@ public class DetailsActivity extends AppCompatActivity {
 //        createJournalEntry();
         Intent intent = getIntent();
         entry = (JournalEntry) intent.getSerializableExtra(JournalEntry.TAG);
+        if(entry == null) {
+            entry = new JournalEntry(JournalEntry.INVALID_ID);
+        }
 
         dateView = findViewById(R.id.journal_entry_date);
         dateView.setText(entry.getDate());
@@ -117,6 +121,13 @@ public class DetailsActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(JournalEntry.TAG, entry);
+        setResult(Activity.RESULT_OK, resultIntent);
+        finish();
+    }
 
     @Override
     protected void onStart() {
