@@ -1,6 +1,10 @@
 package com.lambdaschool.journalguidedproject;
 
-public class JournalEntry {
+import android.net.Uri;
+
+import java.io.Serializable;
+
+public class JournalEntry implements Serializable {
     private String date, entryText, image;
     private int dayRating, id;
 
@@ -32,12 +36,12 @@ public class JournalEntry {
         this.entryText = entryText;
     }
 
-    public String getImage() {
-        return image;
+    public Uri getImage() {
+        return Uri.parse(image);
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImage(Uri imageUri) {
+        this.image = imageUri.toString();
     }
 
     public int getDayRating() {

@@ -23,8 +23,6 @@ public class DetailsActivity extends AppCompatActivity {
 
     private static final int IMAGE_REQUEST_CODE = 50;
 
-    static int nextId = 0;
-
     private JournalEntry entry;
 
     private TextView  dateView;
@@ -39,12 +37,15 @@ public class DetailsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        createJournalEntry();
+//        createJournalEntry();
+        Intent intent = getIntent();
+        entry = (JournalEntry) intent.getSerializableExtra("entry");
 
         dateView = findViewById(R.id.journal_entry_date);
         dateView.setText(entry.getDate());
 
         entryTextView = findViewById(R.id.journal_entry_text);
+        entryTextView.setText(entry.getEntryText());
         entryTextView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -65,6 +66,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         dayRatingView = findViewById(R.id.journal_entry_seekbar);
         dayRatingView.setMax(5);
+        dayRatingView.setProgress(entry.getDayRating());
         dayRatingView.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -85,6 +87,7 @@ public class DetailsActivity extends AppCompatActivity {
         });
 
         dayImageView = findViewById(R.id.journal_entry_image);
+        dayImageView.setImageURI(entry.getImage());
 
         findViewById(R.id.add_image_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,14 +99,7 @@ public class DetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void createJournalEntry() {
-        entry = new JournalEntry(nextId++);
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date       date       = new Date();
-
-        entry.setDate(dateFormat.format(date));
-    }
 
 
     @Override
@@ -111,7 +107,7 @@ public class DetailsActivity extends AppCompatActivity {
         if(resultCode == RESULT_OK && requestCode == IMAGE_REQUEST_CODE) {
             if (data != null) {
                 Uri dataUri = data.getData();
-                entry.setImage(dataUri.toString());
+                entry.setImage(dataUri);
 
                 dayImageView.setImageURI(dataUri);
             }
