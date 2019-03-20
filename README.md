@@ -1,4 +1,5 @@
 # AndroidJournalGuidedProject
 
-## Project Contributors
+## Project Contirbutors
 Chance Payne
+Spencer Stock
