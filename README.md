@@ -1,4 +1,4 @@
 # AndroidJournalGuidedProject
 
-## Project Contirbutors
+## Project Contributors
 Chance Payne
